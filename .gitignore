@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+.env
+.env*.local
+
+# Future Python / AI Backend
+__pycache__/
+.venv/
+venv/
+*.pyc
+*.pt
+*.pth
+*.onnx

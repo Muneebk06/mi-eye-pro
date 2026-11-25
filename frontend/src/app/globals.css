@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+:root {
+  --biit-green: #15803d;
+  --biit-green-dark: #166534;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}

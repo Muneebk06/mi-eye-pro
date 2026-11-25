@@ -1,0 +1,685 @@
+# AI Classroom Monitoring - Simplified Mobile Design
+## Based on Teacher Feedback & Last Year's Reference
+
+**Design Constraints:**
+- ✅ Mobile-first (fit standard phone viewport: 375×667 to 414×896)
+- ✅ Maximum 2-3 swipes per screen
+- ✅ Simple, clean layouts - avoid complexity
+- ✅ Cover all 11 FYP committee requirements
+- ✅ 10 core screens (reduced from 18)
+
+---
+
+## 🎯 Screen Breakdown by Role
+
+### **SHARED SCREENS (All Roles)**
+
+---
+
+### **Screen 1: Login**
+**Height: 1 viewport (no scroll)**
+
+```
+┌─────────────────────────┐
+│   [Logo/App Icon]       │
+│                         │
+│  AI Classroom Monitor   │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ Email/ID            │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ Password  [👁]      │ │
+│ └─────────────────────┘ │
+│                         │
+│    [Forgot Password?]   │
+│                         │
+│ ┌─────────────────────┐ │
+│ │    LOGIN BUTTON     │ │
+│ └─────────────────────┘ │
+│                         │
+└─────────────────────────┘
+```
+
+**Elements:**
+- Logo/icon at top
+- 2 input fields (email, password)
+- Forgot password link
+- Login button
+- Role is auto-detected (no manual selection)
+
+**Why simple:** Single purpose, minimal fields, no role confusion.
+
+---
+
+### **Screen 2: Dashboard (Role-Adaptive)**
+**Height: 1.5 viewports (minimal scroll)**
+
+#### **Teacher View:**
+```
+┌─────────────────────────┐
+│ ☰  Dashboard    [🔔] [⚙] │
+├─────────────────────────┤
+│                         │
+│ 👋 Hello, Prof. Ahmed   │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ TODAY'S CLASSES     │ │
+│ │                     │ │
+│ │ 📚 CS-501 (9:00 AM) │ │
+│ │ 🟢 Ready to start   │ │
+│ │    [START CLASS]    │ │
+│ │                     │ │
+│ │ 📚 CS-502 (2:00 PM) │ │
+│ │ ⏰ Upcoming         │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ QUICK STATS         │ │
+│ │ 📊 3 Classes Today  │ │
+│ │ ✅ 2 Reports Ready  │ │
+│ │ ⚠️  1 Dispute       │ │
+│ └─────────────────────┘ │
+│                         │
+│ [View Full Timetable]   │
+│                         │
+└─────────────────────────┘
+```
+
+#### **Student View:**
+```
+┌─────────────────────────┐
+│ ☰  Dashboard    [🔔] [⚙] │
+├─────────────────────────┤
+│                         │
+│ 👋 Hello, Ali Khan      │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ NEXT CLASS          │ │
+│ │ 📚 CS-501           │ │
+│ │ ⏰ 9:00 AM - Lab-3  │ │
+│ │ 👨‍🏫 Prof. Ahmed      │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ MY ATTENDANCE       │ │
+│ │                     │ │
+│ │   [████████░░] 85%  │ │
+│ │                     │ │
+│ │ ⚠️ CS-502: 72%      │ │
+│ │ (Below threshold)   │ │
+│ └─────────────────────┘ │
+│                         │
+│ [View Full Timetable]   │
+│ [Raise Dispute]         │
+│                         │
+└─────────────────────────┘
+```
+
+#### **Admin View:**
+```
+┌─────────────────────────┐
+│ ☰  Dashboard    [🔔] [⚙] │
+├─────────────────────────┤
+│                         │
+│ 👋 Hello, HOD           │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ TODAY'S OVERVIEW    │ │
+│ │ 📚 28 Classes       │ │
+│ │ 👨‍🏫 12 Teachers      │ │
+│ │ 👨‍🎓 450 Students     │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ PENDING ACTIONS     │ │
+│ │ ⚠️  5 Disputes       │ │
+│ │ 📊 8 Reports Ready  │ │
+│ │ 🚨 15 Low Attend.   │ │
+│ └─────────────────────┘ │
+│                         │
+│ [User Management]       │
+│ [Upload Timetable]      │
+│ [Analytics]             │
+│                         │
+└─────────────────────────┘
+```
+
+**Why simple:** Card-based layout, 2-3 cards max, role-specific content, minimal scrolling.
+
+---
+
+### **Screen 3: Timetable View**
+**Height: 2 viewports (1 scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Timetable      [Week▾]│
+├─────────────────────────┤
+│                         │
+│ [Mon][Tue][Wed][Thu][Fri]│
+│        (Wed selected)   │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 8:00 - 9:30 AM      │ │
+│ │ 📚 CS-501           │ │
+│ │ 👨‍🏫 Prof. Ahmed      │ │
+│ │ 📍 Lab-3            │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 9:45 - 11:15 AM     │ │
+│ │ 📚 CS-502           │ │
+│ │ 👨‍🏫 Dr. Sara         │ │
+│ │ 📍 LT-1             │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 2:00 - 3:30 PM      │ │
+│ │ 📚 CS-503           │ │
+│ │ 👨‍🏫 Prof. Ahmed      │ │
+│ │ 📍 Lab-5            │ │
+│ └─────────────────────┘ │
+│                         │
+│ (Scroll for more slots) │
+└─────────────────────────┘
+```
+
+**Elements:**
+- Day selector tabs at top
+- 3-4 time slots per scroll
+- Each slot: course, teacher, venue
+- Read-only (sourced from admin upload)
+
+**Why simple:** Day-by-day view reduces clutter vs weekly grid on mobile.
+
+**Covers Requirement #6:** Timetable Alerts (push notifications when timetable changes)
+
+---
+
+### **Screen 4: Notifications**
+**Height: 2 viewports (1 scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Notifications  [Clear]│
+├─────────────────────────┤
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 🔔 New              │ │
+│ │ CS-501 Report Ready │ │
+│ │ 5 mins ago          │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ⚠️  Warning          │ │
+│ │ Attendance below 75%│ │
+│ │ CS-502              │ │
+│ │ 2 hours ago         │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ℹ️  Info             │ │
+│ │ Timetable Updated   │ │
+│ │ Check Wed schedule  │ │
+│ │ 1 day ago           │ │
+│ └─────────────────────┘ │
+│                         │
+│ (Scroll for older)      │
+└─────────────────────────┘
+```
+
+**Notification Types:**
+- Report ready (teacher)
+- Attendance threshold warnings (student)
+- Timetable changes (all)
+- Dispute status updates (student/teacher)
+
+**Why simple:** List format, icons for quick scanning, newest first.
+
+---
+
+### **Screen 5: Class Report (Post-Session AI Analysis)**
+**Height: 2.5 viewports (2 scrolls) - CONSOLIDATED**
+
+```
+┌─────────────────────────┐
+│ ← Class Report          │
+├─────────────────────────┤
+│ CS-501 • 15 May • 9:00AM│
+│ Prof. Ahmed • Lab-3     │
+│                         │
+│ [Overview][Students][AI]│
+│     (Tab selected: AI)  │
+├─────────────────────────┤
+│                         │
+│ 🤖 AI DETECTIONS        │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 👤 Posture          │ │
+│ │ 🟢 Good: 32 (85%)   │ │
+│ │ 🟡 Slouch: 5 (13%)  │ │
+│ │ 🔴 Poor: 1 (2%)     │ │
+│ │ [View Details →]    │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 😊 Facial Expr.     │ │
+│ │ Engaged: 78%        │ │
+│ │ Confused: 15%       │ │
+│ │ Distracted: 7%      │ │
+│ │ [View Timeline →]   │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 📱 Mood/Mobile Use  │ │
+│ │ Focused: 82%        │ │
+│ │ Phone Used: 6 stud. │ │
+│ │ [View List →]       │ │
+│ └─────────────────────┘ │
+│                         │
+│ ↓ (Scroll)              │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 👨‍🏫 Teacher Behavior│ │
+│ │ Movement: Active    │ │
+│ │ Board Use: 45%      │ │
+│ │ [View Timeline →]   │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 🎤 Lecture (Voice)  │ │
+│ │ Clarity: 89%        │ │
+│ │ Audibility: Good    │ │
+│ │ [Listen Clips →]    │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 📋 Board Monitoring │ │
+│ │ Clarity: 85%        │ │
+│ │ Coverage: Full      │ │
+│ │ [View Captures →]   │ │
+│ └─────────────────────┘ │
+│                         │
+│     [Export PDF]        │
+│                         │
+└─────────────────────────┘
+```
+
+**3 Tabs:**
+1. **Overview** - Class details, attendance count
+2. **Students** - Individual student metrics
+3. **AI** - All 7 AI detections in one scrollable list
+
+**Why simple:** Card-based summary cards, drill-down on tap, grouped by AI type.
+
+**Covers Requirements:**
+- #1: Posture Detection
+- #2: Teacher Behavior Monitoring
+- #3: Lecture Monitoring
+- #4: Facial Expression Detection
+- #8: Voice Recognition
+- #10: Board Monitoring
+- #11: Mood/Mobile Usage Detection
+
+---
+
+### **Screen 6: Profile & Settings**
+**Height: 2 viewports (1 scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Profile               │
+├─────────────────────────┤
+│                         │
+│      [👤 Avatar]        │
+│    Prof. Ahmed Khan     │
+│  ahmed@university.edu   │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ACCOUNT             │ │
+│ │ Change Password →   │ │
+│ │ Update Email →      │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ NOTIFICATIONS       │ │
+│ │ Push Alerts   [ON]  │ │
+│ │ Email Digest  [OFF] │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ABOUT               │ │
+│ │ App Version: 1.0.2  │ │
+│ │ Privacy Policy →    │ │
+│ └─────────────────────┘ │
+│                         │
+│     [LOGOUT BUTTON]     │
+│                         │
+└─────────────────────────┘
+```
+
+**Why simple:** Grouped settings, minimal options, standard profile layout.
+
+---
+
+### **TEACHER-ONLY SCREENS**
+
+---
+
+### **Screen 7: Mark Attendance (Primary Teacher Workflow)**
+**Height: 2 viewports (1 scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Attendance            │
+├─────────────────────────┤
+│ CS-501 • Today • 9:00 AM│
+│                         │
+│ Auto-detected: 35/38    │
+│ ⚠️  3 flagged (proxy?)  │
+│                         │
+│ [Search students...]    │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ✅ Ali Khan         │ │
+│ │    [P] [A]          │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ⚠️  Sara Ahmed      │ │
+│ │    [P] [A]          │ │
+│ │    🚨 Proxy suspect │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ✅ Usman Ali        │ │
+│ │    [P] [A]          │ │
+│ └─────────────────────┘ │
+│                         │
+│ (Scroll for 32 more)    │
+│                         │
+│    [CONFIRM & SAVE]     │
+│                         │
+└─────────────────────────┘
+```
+
+**Features:**
+- Auto-detected attendance pre-filled
+- Proxy/bunk flags highlighted
+- Quick P/A toggle per student
+- Search to find specific student
+
+**Why simple:** List format, one action per student, flags clearly visible.
+
+**Covers Requirement #5:** Class Bunk Detection/Proxy (flags appear inline)
+
+---
+
+### **Screen 8: Dispute Management (Teacher First Review)**
+**Height: 2 viewports (1 scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Disputes      [Filter]│
+├─────────────────────────┤
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 🟡 Pending          │ │
+│ │                     │ │
+│ │ Ali Khan            │ │
+│ │ CS-501 • 15 May     │ │
+│ │                     │ │
+│ │ "I was present but  │ │
+│ │  marked absent"     │ │
+│ │                     │ │
+│ │ [APPROVE] [REJECT]  │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 🟢 Approved         │ │
+│ │ Sara Ahmed          │ │
+│ │ CS-502 • 14 May     │ │
+│ │ Sent to HOD         │ │
+│ └─────────────────────┘ │
+│                         │
+│ (Scroll for more)       │
+└─────────────────────────┘
+```
+
+**Workflow:**
+- Teacher sees disputes for their classes
+- First-level approval (then goes to Admin)
+- Can view attendance photo evidence
+
+**Why simple:** Card per dispute, 2 action buttons, clear status.
+
+---
+
+### **STUDENT-ONLY SCREEN**
+
+---
+
+### **Screen 9: Raise Attendance Dispute**
+**Height: 1.5 viewports (minimal scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Raise Dispute         │
+├─────────────────────────┤
+│                         │
+│ Select Class:           │
+│ ┌─────────────────────┐ │
+│ │ CS-501 • 15 May  ▾  │ │
+│ └─────────────────────┘ │
+│                         │
+│ Reason:                 │
+│ ┌─────────────────────┐ │
+│ │                     │ │
+│ │ (Text area)         │ │
+│ │                     │ │
+│ │                     │ │
+│ └─────────────────────┘ │
+│                         │
+│ Optional Evidence:      │
+│ [📎 Upload Photo]       │
+│                         │
+│                         │
+│     [SUBMIT DISPUTE]    │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ MY DISPUTES         │ │
+│ │ 🟡 Pending: 1       │ │
+│ │ 🟢 Resolved: 2      │ │
+│ │ [View All →]        │ │
+│ └─────────────────────┘ │
+│                         │
+└─────────────────────────┘
+```
+
+**Why simple:** Form with 3 fields, optional attachment, status summary below.
+
+---
+
+### **ADMIN-ONLY SCREEN**
+
+---
+
+### **Screen 10: Admin Control Panel**
+**Height: 2 viewports (1 scroll)**
+
+```
+┌─────────────────────────┐
+│ ← Admin Panel           │
+├─────────────────────────┤
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 👥 USER MANAGEMENT  │ │
+│ │                     │ │
+│ │ Add/Edit Teachers → │ │
+│ │ Add/Edit Students → │ │
+│ │ Deactivate Users →  │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 📅 TIMETABLE        │ │
+│ │                     │ │
+│ │ Upload Excel →      │ │
+│ │ View Current →      │ │
+│ │ (Last: 2 days ago)  │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 📊 ANALYTICS        │ │
+│ │                     │ │
+│ │ Overall Attendance →│ │
+│ │ Teacher Reports →   │ │
+│ │ Export Data →       │ │
+│ └─────────────────────┘ │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ ⚠️  DISPUTES (Final) │ │
+│ │ 2 pending review    │ │
+│ │ [Review Now →]      │ │
+│ └─────────────────────┘ │
+│                         │
+└─────────────────────────┘
+```
+
+**Sub-screens (accessed from here):**
+- User Management → Add/Edit forms (simple forms, one at a time)
+- Timetable Upload → File picker + validation
+- Analytics → Simple charts (bar/line, not complex dashboards)
+- Dispute Final Review → Similar to teacher dispute screen
+
+**Why simple:** Grouped actions, no overwhelming data on one screen.
+
+**Covers Requirement #9:** Attendance Threshold (admin views shortage reports in analytics)
+
+---
+
+## 📐 Design Specifications
+
+### Mobile Viewport Standards:
+- **Small phones:** 375×667 (iPhone SE)
+- **Medium phones:** 390×844 (iPhone 13)
+- **Large phones:** 414×896 (iPhone 11 Pro Max)
+
+### Height Guidelines:
+- ✅ **1 viewport** = No scroll (Login, simple forms)
+- ✅ **1.5 viewports** = Half scroll (Dashboard)
+- ✅ **2 viewports** = 1 full scroll (Lists, timetable)
+- ⚠️ **2.5 viewports** = 2 scrolls MAX (only for dense data like AI report)
+
+### Typography:
+- **Titles:** 20-24px, Bold
+- **Body:** 16px, Regular
+- **Labels:** 14px, Medium
+- **Captions:** 12px, Regular
+
+### Spacing:
+- **Cards:** 16px padding, 12px gap between
+- **Margins:** 16px left/right, 20px top/bottom
+- **Buttons:** 48px height (easy tap target)
+
+### Colors (Simple Palette):
+- **Primary:** #2563EB (Blue)
+- **Success:** #10B981 (Green)
+- **Warning:** #F59E0B (Orange)
+- **Error:** #EF4444 (Red)
+- **Background:** #F9FAFB (Light Gray)
+- **Text:** #1F2937 (Dark Gray)
+
+---
+
+## ✅ All 11 Requirements Covered:
+
+| # | Requirement | Screen |
+|---|-------------|--------|
+| 1 | Posture Detection | Class Report (AI tab) |
+| 2 | Teacher Behaviour Monitoring | Class Report (AI tab) |
+| 3 | Lecture Monitoring | Class Report (AI tab) |
+| 4 | Facial Expression Detection | Class Report (AI tab) |
+| 5 | Class Bunk/Proxy Detection | Mark Attendance (inline flags) |
+| 6 | Timetable Alerts | Timetable + Notifications |
+| 7 | Dataset Creation | Backend process (no screen) |
+| 8 | Voice Recognition | Class Report (Lecture section) |
+| 9 | Attendance Threshold | Dashboard alerts + Admin analytics |
+| 10 | Board Monitoring | Class Report (AI tab) |
+| 11 | Mood/Mobile Usage Detection | Class Report (AI tab) |
+
+---
+
+## 🎨 Mockup Creation Workflow:
+
+### Step 1: Choose Your Tool
+**Recommended: Figma** (free, browser-based, mobile templates)
+
+### Step 2: Create Artboards
+- Create 10 artboards (one per screen)
+- Use mobile frame: iPhone 13 (390×844)
+
+### Step 3: Start with Wireframes
+- Use rectangles for cards
+- Use text labels
+- No colors yet (grayscale)
+
+### Step 4: Add Visual Design
+- Apply color palette
+- Add icons (use free sets like Heroicons, Feather Icons)
+- Add sample data
+
+### Step 5: Create Flow
+- Link screens (tap prototype)
+- Show teacher's typical workflow:
+  - Login → Dashboard → Mark Attendance → View Report
+
+### Step 6: Export & Present
+- Export as PNG/PDF for teacher review
+- Create clickable prototype for FYP demo
+
+---
+
+## 📱 Screen Priority for Mockup:
+
+**Must Have (Make First):**
+1. Login
+2. Teacher Dashboard
+3. Mark Attendance (most used by teacher)
+4. Class Report (shows all 7 AI detections)
+
+**Should Have:**
+5. Timetable
+6. Student Dashboard
+7. Raise Dispute
+
+**Nice to Have:**
+8. Notifications
+9. Profile
+10. Admin Panel
+
+---
+
+## 🚀 Next Steps:
+
+1. **Review this design** - Does it match your teacher's "simple" feedback?
+2. **Pick a mockup tool** - I recommend Figma (free + easy)
+3. **Start with 4 priority screens** - Get teacher feedback early
+4. **Iterate** - Adjust based on feedback before making all 10
+5. **Add interactions** - Create clickable prototype for FYP presentation
+
+---
+
+## 💡 Key Simplifications from Previous Design:
+
+✅ **Reduced from 18 → 10 screens** (consolidated related functions)
+✅ **AI Report in one screen** (tabs vs 7 separate screens)
+✅ **Card-based layouts** (easier to scan on mobile)
+✅ **Maximum 2 scrolls per screen** (fits teacher's height constraint)
+✅ **No complex charts** (simple stats with numbers/percentages)
+✅ **Minimal navigation** (3-level hierarchy max)
+
+---
+
+This design balances **simplicity** (teacher's feedback) with **comprehensive coverage** (all 11 requirements) while staying **mobile-friendly** (no excessive height).
