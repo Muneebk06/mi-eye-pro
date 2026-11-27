@@ -11,3 +11,19 @@ venv/
 *.pt
 *.pth
 *.onnx
+
+# Local FYP Dataset (never push heavy media)
+dataset/
+enrollment_photos/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.npz
+*.weights
+*.tflite
+*.engine
+
+# Local IDE metadata & machine env backups
+.idea/
+backups/

@@ -4,7 +4,7 @@ import Dexie from "dexie";
 import { useState, useEffect } from "react";
 
 
-export const db = new Dexie("StudentDB");
+const db = new Dexie("StudentDB");
 
 db.version(1).stores({
   students: "++id, name, semester, cgpa",

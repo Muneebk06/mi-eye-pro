@@ -1,3 +1,5 @@
-export default function StudentPage() {
-  return null;
+import Monitor from "@/monitor/Monitor";
+
+export default function Page() {
+  return <Monitor initialRole="student" />;
 }

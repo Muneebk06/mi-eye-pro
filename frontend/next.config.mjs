@@ -1,19 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    agentFeedback: true,
-  },
-  cacheComponents: true,
-  partialPrefetching: true,
-  reactCompiler: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
+export default {
+  webpack(config) {
+    config.module.rules.push({
+      test: /globals\.css$/,
+      enforce: 'pre',
+      use: ['@tailwindcss/turbopack'],
+    });
+    return config;
   },
 };
-
-export default nextConfig;
